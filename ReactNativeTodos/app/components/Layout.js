@@ -18,7 +18,7 @@ let ROUTE_RESET = false;
 let Layout = React.createClass({
   getInitialState() {
     return {
-      selectedTab: 'private'
+      selectedTab: 'public'
     }
   },
 
@@ -68,10 +68,12 @@ let Layout = React.createClass({
         initialRoute={{id: 'list', index: 0}}
         renderScene={this.renderPrivateScene}
         configureScene={(route) => {
+          let config = Navigator.SceneConfigs.FloatFromBottom
           if (route.sceneConfig) {
-            return route.sceneConfig;
+            config = route.sceneConfig;
           }
-          return Navigator.SceneConfigs.FloatFromBottom;
+          config.gestures = {}; // Disable gestures
+          return config;
         }}
       />
     );
