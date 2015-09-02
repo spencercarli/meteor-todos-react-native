@@ -5,7 +5,8 @@ let {
   View,
   Text,
   TabBarIOS,
-  NavigatorIOS
+  NavigatorIOS,
+  Navigator,
 } = React;
 
 let ListsContainer = require('./ListsContainer');
@@ -26,19 +27,44 @@ let Layout = React.createClass({
           title: 'Public Lists',
         }}
         />
-    )
+    );
   },
 
   renderPrivateNavigator() {
+    setTimeout(()=> {
+      if (this.refs.privateNavigator) {
+        this.refs.privateNavigator.push({
+          id: 'signIn'
+        });
+      }
+    }, 2000);
+
     return (
-      <NavigatorIOS
-        style={{flex: 1}}
-        initialRoute={{
-          component: ListsContainer,
-          title: 'Private Lists',
+      <Navigator
+        ref="privateNavigator"
+        initialRoute={{name: 'My First Scene', index: 0}}
+        configureRoute={(route) => Navigator.SceneConfigs.FloatFromBottom }
+        renderScene={(route, navigator) => {
+          if (route.id === 'signIn') {
+            return (
+              <View style={{backgroundColor: 'red', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <Text>Sign in</Text>
+              </View>
+            );
+          } else {
+            return (
+              <NavigatorIOS
+                style={{flex: 1}}
+                initialRoute={{
+                  component: ListsContainer,
+                  title: 'Private Lists',
+                }}
+                />
+            );
+          }
         }}
-        />
-    )
+      />
+    );
   },
 
   render() {

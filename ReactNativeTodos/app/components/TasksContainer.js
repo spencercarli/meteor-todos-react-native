@@ -7,9 +7,9 @@ let {
 let Tasks = require('./Tasks');
 
 const STATIC_TASKS = [
-  { _id: 1, name: 'Task 1', checked: true },
-  { _id: 2, name: 'Task 2', checked: false },
-  { _id: 3, name: 'Task 3', checked: true },
+  { _id: 1, text: 'Task 1', checked: true },
+  { _id: 2, text: 'Task 2', checked: false },
+  { _id: 3, text: 'Task 3', checked: true },
 ];
 
 let TasksContainer = React.createClass({

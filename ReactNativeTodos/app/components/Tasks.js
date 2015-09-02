@@ -33,7 +33,7 @@ let Lists = React.createClass({
         <TouchableWithoutFeedback onPress={() => this.props.handleCheck(task._id)}>
           <Image style={styles.statusIcon} source={icon}/>
         </TouchableWithoutFeedback>
-        <Text style={styles.listName}>{task.name}</Text>
+        <Text style={styles.listName}>{task.text}</Text>
       </View>
     );
   },
