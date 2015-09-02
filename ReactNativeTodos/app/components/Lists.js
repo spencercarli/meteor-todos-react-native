@@ -4,10 +4,14 @@ let {
   Text,
   ScrollView,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Image,
 } = React;
 
-let Layout = React.createClass({
+let TasksContainer = require('./TasksContainer');
+let chevronRight = require("image!chevron-right");
+
+let Lists = React.createClass({
   propTypes: {
     lists: React.PropTypes.array
   },
@@ -18,11 +22,22 @@ let Layout = React.createClass({
     }
   },
 
+  handleClick(list) {
+    this.props.navigator.push({
+      title: list.name,
+      component: TasksContainer,
+      passProps: {
+        list: list
+      }
+    });
+  },
+
   renderListRow(list) {
     return (
-      <TouchableOpacity key={list.name}>
+      <TouchableOpacity key={list.name} onPress={() => this.handleClick(list)}>
         <View style={styles.row}>
           <Text style={styles.listName}>{list.name}</Text>
+          <Image style={styles.chevron} source={chevronRight} />
         </View>
       </TouchableOpacity>
     );
@@ -47,12 +62,18 @@ const styles = StyleSheet.create({
   row: {
     padding: 15,
     borderBottomWidth: 1 / React.PixelRatio.get(),
-    borderBottomColor: 'black'
+    borderBottomColor: 'black',
+    flexDirection: "row",
   },
   listName: {
     fontSize: 16,
     fontWeight: '300'
+  },
+  chevron: {
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    right: 15
   }
 });
 
-module.exports = Layout;
+module.exports = Lists;

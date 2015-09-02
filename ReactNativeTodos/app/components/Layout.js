@@ -46,6 +46,7 @@ let Layout = React.createClass({
       <TabBarIOS>
         <TabBarIOS.Item
           title="Public Lists"
+          icon={require('image!public')}
           selected={this.state.selectedTab === 'public'}
           onPress={() => {
             this.setState({
@@ -56,6 +57,7 @@ let Layout = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="Private Lists"
+          icon={require('image!private')}
           selected={this.state.selectedTab === 'private'}
           onPress={() => {
             this.setState({

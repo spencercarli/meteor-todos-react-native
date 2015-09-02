@@ -7,12 +7,12 @@ let {
 let Lists = require('./Lists');
 
 const STATIC_LISTS = [
-  {name: 'Meteor Principles'},
-  {name: 'Languages'},
-  {name: 'Favorite Scientists'},
+  {_id: 1, name: 'Meteor Principles'},
+  {_id: 2, name: 'Languages'},
+  {_id: 3, name: 'Favorite Scientists'},
 ];
 
-let Layout = React.createClass({
+let ListsContainer = React.createClass({
   getInitialState() {
     return {
       lists: STATIC_LISTS
@@ -20,8 +20,13 @@ let Layout = React.createClass({
   },
 
   render() {
-    return <Lists lists={this.state.lists} />;
+    return (
+      <Lists
+        lists={this.state.lists}
+        navigator={this.props.navigator}
+        />
+    );
   }
 });
 
-module.exports = Layout;
+module.exports = ListsContainer;
