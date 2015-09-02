@@ -10,11 +10,13 @@ let {
 } = React;
 
 let ListsContainer = require('./ListsContainer');
+let SignIn = require('./SignIn');
+let Join = require('./Join');
 
 let Layout = React.createClass({
   getInitialState() {
     return {
-      selectedTab: 'public'
+      selectedTab: 'private'
     }
   },
 
@@ -90,7 +92,7 @@ let Layout = React.createClass({
               selectedTab: 'private',
             });
           }}>
-          {this.renderPrivateNavigator()}
+          <Join />
         </TabBarIOS.Item>
       </TabBarIOS>
     )
