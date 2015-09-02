@@ -5,6 +5,7 @@ let {
   StyleSheet,
   TextInput,
   TouchableHighlight,
+  Navigator,
 } = React;
 
 let Join = React.createClass({
@@ -17,8 +18,13 @@ let Join = React.createClass({
   },
 
   handleClick() {
-    console.log('hey!');
     console.log(this.state.email, this.state.password, this.state.confirmPassword);
+
+    this.props.navigator.popToTop();
+  },
+
+  handleSignInClick() {
+    this.props.navigator.pop();
   },
 
   render() {
@@ -61,6 +67,14 @@ let Join = React.createClass({
           onPress={this.handleClick}
         >
           <Text style={styles.btnText}>JOIN NOW</Text>
+        </TouchableHighlight>
+
+        <TouchableHighlight
+          style={styles.signInBtn}
+          underlayColor="#C8EAF3"
+          onPress={this.handleSignInClick}
+        >
+          <Text style={styles.signInText}>Have an account? Sign in</Text>
         </TouchableHighlight>
       </View>
     );
@@ -105,6 +119,13 @@ const styles = StyleSheet.create({
   btnText: {
     color: '#fff',
     fontSize: 16,
+  },
+  signInBtn: {
+    padding: 10,
+    marginTop: 10,
+  },
+  signInText: {
+    color: '#AAA'
   }
 });
 

@@ -13,6 +13,8 @@ let ListsContainer = require('./ListsContainer');
 let SignIn = require('./SignIn');
 let Join = require('./Join');
 
+let ROUTE_RESET = false;
+
 let Layout = React.createClass({
   getInitialState() {
     return {
@@ -32,38 +34,44 @@ let Layout = React.createClass({
     );
   },
 
+  renderPrivateScene(route, navigator) {
+    if (route.id === 'signIn') {
+      return <SignIn navigator={navigator} />;
+    } else if (route.id === 'join') {
+      return <Join navigator={navigator} />;
+    } else {
+      return (
+        <NavigatorIOS
+          style={{flex: 1}}
+          initialRoute={{
+            component: ListsContainer,
+            title: 'Private Lists',
+          }}
+          />
+      );
+    }
+  },
+
   renderPrivateNavigator() {
     setTimeout(()=> {
-      if (this.refs.privateNavigator) {
+      if (this.refs.privateNavigator && !ROUTE_RESET) {
         this.refs.privateNavigator.push({
           id: 'signIn'
         });
+        ROUTE_RESET = true;
       }
-    }, 2000);
+    }, 100);
 
     return (
       <Navigator
         ref="privateNavigator"
-        initialRoute={{name: 'My First Scene', index: 0}}
-        configureRoute={(route) => Navigator.SceneConfigs.FloatFromBottom }
-        renderScene={(route, navigator) => {
-          if (route.id === 'signIn') {
-            return (
-              <View style={{backgroundColor: 'red', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text>Sign in</Text>
-              </View>
-            );
-          } else {
-            return (
-              <NavigatorIOS
-                style={{flex: 1}}
-                initialRoute={{
-                  component: ListsContainer,
-                  title: 'Private Lists',
-                }}
-                />
-            );
+        initialRoute={{id: 'list', index: 0}}
+        renderScene={this.renderPrivateScene}
+        configureScene={(route) => {
+          if (route.sceneConfig) {
+            return route.sceneConfig;
           }
+          return Navigator.SceneConfigs.FloatFromBottom;
         }}
       />
     );
@@ -92,7 +100,7 @@ let Layout = React.createClass({
               selectedTab: 'private',
             });
           }}>
-          <Join />
+          {this.renderPrivateNavigator()}
         </TabBarIOS.Item>
       </TabBarIOS>
     )
