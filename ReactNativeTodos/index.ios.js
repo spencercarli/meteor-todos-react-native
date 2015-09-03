@@ -5,6 +5,9 @@ let {
   AppRegistry,
 } = React;
 
+// Polyfill the process functionality needed for minimongo-cache
+global.process = require("./app/config/process.polyfill");
+
 let Layout = require('./app/components/Layout');
 
 let ReactNativeTodos = React.createClass({

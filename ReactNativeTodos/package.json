@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "ddp-client": "^0.1.2",
-    "react-native": "^0.10.1"
+    "react-native": "^0.10.1",
+    "underscore": "^1.8.3"
   }
 }

@@ -19,13 +19,16 @@ let ROUTE_RESET = false;
 let Layout = React.createClass({
   getInitialState() {
     return {
-      selectedTab: 'public'
+      selectedTab: 'public',
+      connected: false
     }
   },
 
   componentWillMount() {
-    console.log('will mount');
-    ddpClient.initialize();
+    ddpClient.initialize()
+      .then(() => {
+        this.setState({connected: true});
+      });
   },
 
   renderPublicNavigator() {
@@ -86,32 +89,40 @@ let Layout = React.createClass({
   },
 
   render() {
-    return (
-      <TabBarIOS>
-        <TabBarIOS.Item
-          title="Public Lists"
-          icon={require('image!public')}
-          selected={this.state.selectedTab === 'public'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'public',
-            });
-          }}>
-          {this.renderPublicNavigator()}
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
-          title="Private Lists"
-          icon={require('image!private')}
-          selected={this.state.selectedTab === 'private'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'private',
-            });
-          }}>
-          {this.renderPrivateNavigator()}
-        </TabBarIOS.Item>
-      </TabBarIOS>
-    )
+    if (this.state.connected) {
+      return (
+        <TabBarIOS>
+          <TabBarIOS.Item
+            title="Public Lists"
+            icon={require('image!public')}
+            selected={this.state.selectedTab === 'public'}
+            onPress={() => {
+              this.setState({
+                selectedTab: 'public',
+              });
+            }}>
+            {this.renderPublicNavigator()}
+          </TabBarIOS.Item>
+          <TabBarIOS.Item
+            title="Private Lists"
+            icon={require('image!private')}
+            selected={this.state.selectedTab === 'private'}
+            onPress={() => {
+              this.setState({
+                selectedTab: 'private',
+              });
+            }}>
+            {this.renderPrivateNavigator()}
+          </TabBarIOS.Item>
+        </TabBarIOS>
+      )
+    } else {
+      return (
+        <View>
+          <Text>Connecting</Text>
+        </View>
+      )
+    }
   }
 });
 

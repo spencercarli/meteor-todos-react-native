@@ -5,18 +5,20 @@ let {
 } = React;
 
 let Lists = require('./Lists');
-
-const STATIC_LISTS = [
-  {_id: 1, name: 'Meteor Principles'},
-  {_id: 2, name: 'Languages'},
-  {_id: 3, name: 'Favorite Scientists'},
-];
+let ddp = require('../config/ddp');
 
 let ListsContainer = React.createClass({
   getInitialState() {
     return {
-      lists: STATIC_LISTS
+      lists: []
     }
+  },
+
+  componentWillMount() {
+    ddp.subscribe('publicLists')
+      .then(() => {
+        this.setState({lists: ddp.collections.lists.find()});
+      });
   },
 
   render() {

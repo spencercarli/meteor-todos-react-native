@@ -1,4 +1,5 @@
 let DDPClient = require("ddp-client");
+let _ = require('underscore');
 
 let ddpClient = new DDPClient({
   // All properties optional, defaults shown
@@ -42,6 +43,19 @@ ddp.initialize = function () {
 // Method to close the ddp connection
 ddp.close = function() {
   return ddpClient.close();
+};
+
+// Promised based subscription
+ddp.subscribe = function(pubName, params) {
+  params = params || undefined;
+  if (params && !_.isArray(params)) {
+    console.warn('Params must be passed as an array to ddp.subscribe');
+  }
+  return new Promise(function(resolve, reject) {
+    ddpClient.subscribe(pubName, params, function () {
+      resolve(true);
+    });
+  });
 };
 
 module.exports = ddp;
