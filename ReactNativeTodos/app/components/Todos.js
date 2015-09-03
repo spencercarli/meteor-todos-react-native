@@ -43,7 +43,7 @@ let Todos = React.createClass({
     todoItems = this.props.todos.map(this.renderTodoRow);
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} automaticallyAdjustContentInsets={false}>
         {todoItems}
       </ScrollView>
     );

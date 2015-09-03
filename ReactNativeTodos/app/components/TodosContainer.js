@@ -5,6 +5,7 @@ let {
 } = React;
 
 let Todos = require('./Todos');
+let TodosInput = require('./TodosInput');
 let ddp = require('../config/ddp');
 let _ = require('underscore');
 
@@ -47,8 +48,24 @@ let TodosContainer = React.createClass({
     ddp.call('Lists.update', [todo.listId, listModifier]);
   },
 
+  handleAddTask(text) {
+    let mod = {
+      listId: this.props.list._id,
+      text: text,
+      checked: false,
+      createdAt: new Date()
+    };
+
+    ddp.call('Todos.insert', [mod]);
+  },
+
   render() {
-    return <Todos todos={this.state.todos} handleCheck={this.handleCheck} />;
+    return (
+      <View style={{flex: 1}}>
+        <TodosInput addTask={this.handleAddTask} />
+        <Todos todos={this.state.todos} handleCheck={this.handleCheck} />
+      </View>
+    );
   }
 });
 
