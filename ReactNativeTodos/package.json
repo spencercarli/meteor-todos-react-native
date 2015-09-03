@@ -7,6 +7,7 @@
     "app": "open iOS/ReactNativeTodos.xcodeproj && REACT_EDITOR=atom npm start"
   },
   "dependencies": {
+    "ddp-client": "^0.1.2",
     "react-native": "^0.10.1"
   }
 }

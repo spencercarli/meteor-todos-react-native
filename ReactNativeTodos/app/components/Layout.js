@@ -12,6 +12,7 @@ let {
 let ListsContainer = require('./ListsContainer');
 let SignIn = require('./SignIn');
 let Join = require('./Join');
+let ddpClient = require('../config/ddp');
 
 let ROUTE_RESET = false;
 
@@ -20,6 +21,11 @@ let Layout = React.createClass({
     return {
       selectedTab: 'public'
     }
+  },
+
+  componentWillMount() {
+    console.log('will mount');
+    ddpClient.initialize();
   },
 
   renderPublicNavigator() {
