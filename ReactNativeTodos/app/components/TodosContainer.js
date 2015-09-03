@@ -6,6 +6,7 @@ let {
 
 let Todos = require('./Todos');
 let ddp = require('../config/ddp');
+let _ = require('underscore');
 
 let TodosContainer = React.createClass({
   getInitialState() {
@@ -32,24 +33,22 @@ let TodosContainer = React.createClass({
 
   componentWillUnmount() {
     if (this.state.todosObserver) {
-      this.state.todosObserver.dispose();      
+      this.state.todosObserver.dispose();
     }
   },
 
-  // Could be refactored
-  _handleCheck(_id) {
-    var newTodos = [];
-    this.state.todos.map((todo) => {
-      if (todo._id === _id) {
-        todo.checked = !todo.checked;
-      }
-      newTodos.push(todo);
-    });
-    this.setState({todos: newTodos})
+  handleCheck(_id) {
+    let todo = _.findWhere(this.state.todos, {_id: _id});
+
+    let todoModifier = {$set: {checked: !todo.checked}};
+    ddp.call('Todos.update', [_id, todoModifier]);
+
+    let listModifier = {$inc: {incompleteCount: !todo.checked ? -1 : 1}};
+    ddp.call('Lists.update', [todo.listId, listModifier]);
   },
 
   render() {
-    return <Todos todos={this.state.todos} handleCheck={this._handleCheck} />;
+    return <Todos todos={this.state.todos} handleCheck={this.handleCheck} />;
   }
 });
 
