@@ -10,15 +10,30 @@ let ddp = require('../config/ddp');
 let TodosContainer = React.createClass({
   getInitialState() {
     return {
-      todos: []
+      todos: [],
+      todosObserver: null
     }
   },
 
   componentWillMount() {
     ddp.subscribe('todos', [this.props.list._id])
       .then(() => {
-        this.setState({todos: ddp.collections.todos.find({listId: this.props.list._id})});
+        let todosObserver = ddp.collections.observe(() => {
+          return ddp.collections.todos.find({listId: this.props.list._id});
+        });
+
+        this.setState({todosObserver: todosObserver});
+
+        todosObserver.subscribe((results) => {
+          this.setState({todos: results});
+        });
       });
+  },
+
+  componentWillUnmount() {
+    if (this.state.todosObserver) {
+      this.state.todosObserver.dispose();      
+    }
   },
 
   // Could be refactored

@@ -10,15 +10,30 @@ let ddp = require('../config/ddp');
 let ListsContainer = React.createClass({
   getInitialState() {
     return {
-      lists: []
+      lists: [],
+      listsObserver: null
     }
   },
 
   componentWillMount() {
     ddp.subscribe('publicLists')
       .then(() => {
-        this.setState({lists: ddp.collections.lists.find()});
+        let listsObserver = ddp.collections.observe(() => {
+          return ddp.collections.lists.find()
+        });
+
+        this.setState({listsObserver: listsObserver});
+
+        listsObserver.subscribe((results) => {
+          this.setState({lists: results});
+        });
       });
+  },
+
+  componentWillUnmount() {
+    if (this.state.listsObserver) {
+      this.state.listsObserver.dispose();
+    }
   },
 
   render() {
