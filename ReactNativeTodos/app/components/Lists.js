@@ -8,7 +8,7 @@ let {
   Image,
 } = React;
 
-let TasksContainer = require('./TasksContainer');
+let TodosContainer = require('./TodosContainer');
 let chevronRight = require("image!chevron-right");
 
 let Lists = React.createClass({
@@ -25,7 +25,7 @@ let Lists = React.createClass({
   handleClick(list) {
     this.props.navigator.push({
       title: list.name,
-      component: TasksContainer,
+      component: TodosContainer,
       passProps: {
         list: list
       }

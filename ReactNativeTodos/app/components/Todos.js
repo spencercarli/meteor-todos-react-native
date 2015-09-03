@@ -11,40 +11,40 @@ let {
 let openImage = require("image!open");
 let checkedImage = require("image!checked");
 
-let Lists = React.createClass({
+let Todos = React.createClass({
   propTypes: {
-    tasks: React.PropTypes.array
+    todos: React.PropTypes.array
   },
 
   getDefaultProps() {
     return {
-      tasks: []
+      todos: []
     }
   },
 
-  renderTaskRow(task) {
+  renderTodoRow(todo) {
     let icon = openImage;
-    if (task.checked) {
+    if (todo.checked) {
       icon = checkedImage;
     }
 
     return (
-      <View style={styles.row} key={task._id}>
-        <TouchableWithoutFeedback onPress={() => this.props.handleCheck(task._id)}>
+      <View style={styles.row} key={todo._id}>
+        <TouchableWithoutFeedback onPress={() => this.props.handleCheck(todo._id)}>
           <Image style={styles.statusIcon} source={icon}/>
         </TouchableWithoutFeedback>
-        <Text style={styles.listName}>{task.text}</Text>
+        <Text style={styles.listName}>{todo.text}</Text>
       </View>
     );
   },
 
   render() {
-    let taskItems = [];
-    taskItems = this.props.tasks.map(this.renderTaskRow);
+    let todoItems = [];
+    todoItems = this.props.todos.map(this.renderTodoRow);
 
     return (
       <ScrollView style={styles.container}>
-        {taskItems}
+        {todoItems}
       </ScrollView>
     );
   }
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
   }
 });
 
-module.exports = Lists;
+module.exports = Todos;
