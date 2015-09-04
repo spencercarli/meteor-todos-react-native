@@ -1,3 +1,5 @@
+let React = require('react-native');
+let { AsyncStorage } = React;
 let DDPClient = require("ddp-client");
 let _ = require('underscore');
 
@@ -80,6 +82,74 @@ ddp.call = function(methodName, params) {
         // console.log(ddpclient.collections.posts);  // calling this method
       }
     );
+  });
+};
+
+// Method to login with a saved token
+ddp.loginWithToken = function() {
+  return new Promise(function(resolve, reject) {
+    // Check if we have a loginToken in persistent client storage
+    AsyncStorage.getItem('loginToken')
+      .then(function(token) {
+        // Login with said token
+        if (token) {
+          ddpClient.call("login", [{ resume: token }], function (err, res) {
+            console.log('Logged in with resume token.');
+            if (res) {
+              // Update information.
+              AsyncStorage.setItem('userId', res.id)
+              AsyncStorage.setItem('loginToken', res.token);
+              AsyncStorage.setItem('loginTokenExpires', res.tokenExpires);
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          });
+        } else {
+          console.log('No token found');
+          resolve(false);
+        }
+      });
+  });
+};
+
+// Method to log in
+ddp.loginWithPassword = function(email, password) {
+
+  return new Promise(function(resolve, reject) {
+    ddpClient.call("login", [
+      { user : { email : email }, password : password }
+    ], function (err, res) {
+      if (err) {
+        reject(err);
+      }
+
+      if (res) {
+        console.log('sucess!');
+        AsyncStorage.setItem('userId', res.id)
+        AsyncStorage.setItem('loginToken', res.token);
+        AsyncStorage.setItem('loginTokenExpires', res.tokenExpires);
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+};
+
+// Method to Logout
+ddp.logout = function() {
+  return new Promise(function(resolve, reject) {
+    ddpClient.call("logout", [], function (err, res) {
+      console.log('Logged out.');
+      if (err) {
+        console.log('err', err);
+      } else {
+        console.log('delete the tokens');
+        AsyncStorage.multiRemove(['userId', 'loginToken', 'loginTokenExpires']);
+      }
+    });
+    resolve(true);
   });
 };
 

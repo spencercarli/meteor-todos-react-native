@@ -8,6 +8,8 @@ let {
   Navigator,
 } = React;
 
+let ddp = require('../config/ddp');
+
 let SignIn = React.createClass({
   getInitialState() {
     return {
@@ -17,9 +19,10 @@ let SignIn = React.createClass({
   },
 
   handleClick() {
-    console.log(this.state.email, this.state.password);
-
-    this.props.navigator.popToTop();
+    ddp.loginWithPassword(this.state.email, this.state.password)
+      .then((loggedIn) => {
+        this.props.changeLogin(loggedIn);
+      });
   },
 
   handleJoinClick() {

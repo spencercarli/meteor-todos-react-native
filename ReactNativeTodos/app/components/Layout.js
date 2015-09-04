@@ -14,13 +14,12 @@ let SignIn = require('./SignIn');
 let Join = require('./Join');
 let ddpClient = require('../config/ddp');
 
-let ROUTE_RESET = false;
-
 let Layout = React.createClass({
   getInitialState() {
     return {
       selectedTab: 'public',
-      connected: false
+      connected: false,
+      userId: null
     }
   },
 
@@ -28,7 +27,26 @@ let Layout = React.createClass({
     ddpClient.initialize()
       .then(() => {
         this.setState({connected: true});
+      })
+      .then(() => {
+        return ddp.loginWithToken();
+      })
+      .then((loggedIn) => {
+        this.changeLoginState(loggedIn)
       });
+  },
+
+  changeLoginState(loggedIn) {
+    if (loggedIn === true) {
+      this.refs.privateNavigator.push({
+        id: 'list'
+      });
+    } else {
+      ddp.logout();
+      this.refs.privateNavigator.push({
+        id: 'signIn'
+      });
+    }
   },
 
   renderPublicNavigator() {
@@ -44,19 +62,28 @@ let Layout = React.createClass({
   },
 
   renderPrivateScene(route, navigator) {
-    if (route.id === 'signIn') {
-      return <SignIn navigator={navigator} />;
-    } else if (route.id === 'join') {
-      return <Join navigator={navigator} />;
-    } else {
+    if (route.id === 'list') {
       return (
         <NavigatorIOS
           style={{flex: 1}}
           initialRoute={{
             component: ListsContainer,
             title: 'Private Lists',
-            passProps: { userId: "4AqepbpqR2e2Aedej" }
+            passProps: { userId: "4AqepbpqR2e2Aedej" },
+            rightButtonTitle: 'Logout',
+            onRightButtonPress: () => {
+              this.changeLoginState(false);
+            }
           }}
+          />
+      );
+    } else if (route.id === 'join') {
+      return <Join navigator={navigator} />;
+    } else {
+      return (
+        <SignIn
+          navigator={navigator}
+          changeLogin={this.changeLoginState}
           />
       );
     }
@@ -64,18 +91,17 @@ let Layout = React.createClass({
 
   renderPrivateNavigator() {
     // setTimeout(()=> {
-    //   if (this.refs.privateNavigator && !ROUTE_RESET) {
+    //   if (this.refs.privateNavigator && !this.state.loggedIn) {
     //     this.refs.privateNavigator.push({
     //       id: 'signIn'
     //     });
-    //     ROUTE_RESET = true;
     //   }
     // }, 100);
 
     return (
       <Navigator
         ref="privateNavigator"
-        initialRoute={{id: 'list', index: 0}}
+        initialRoute={{id: 'signIn', index: 0}}
         renderScene={this.renderPrivateScene}
         configureScene={(route) => {
           let config = Navigator.SceneConfigs.FloatFromBottom
