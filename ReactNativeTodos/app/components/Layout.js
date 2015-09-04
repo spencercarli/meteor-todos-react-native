@@ -12,40 +12,11 @@ let {
 let ListsContainer = require('./ListsContainer');
 let SignIn = require('./SignIn');
 let Join = require('./Join');
-let ddpClient = require('../config/ddp');
 
 let Layout = React.createClass({
   getInitialState() {
     return {
-      selectedTab: 'public',
-      connected: false,
-      userId: null
-    }
-  },
-
-  componentWillMount() {
-    ddpClient.initialize()
-      .then(() => {
-        this.setState({connected: true});
-      })
-      .then(() => {
-        return ddp.loginWithToken();
-      })
-      .then((loggedIn) => {
-        this.changeLoginState(loggedIn)
-      });
-  },
-
-  changeLoginState(loggedIn) {
-    if (loggedIn === true) {
-      this.refs.privateNavigator.push({
-        id: 'list'
-      });
-    } else {
-      ddp.logout();
-      this.refs.privateNavigator.push({
-        id: 'signIn'
-      });
+      selectedTab: 'public'
     }
   },
 
@@ -62,7 +33,7 @@ let Layout = React.createClass({
   },
 
   renderPrivateScene(route, navigator) {
-    if (route.id === 'list') {
+    if (route.id === 'list' || this.props.loggedIn) {
       return (
         <NavigatorIOS
           style={{flex: 1}}
@@ -72,7 +43,7 @@ let Layout = React.createClass({
             passProps: { userId: "4AqepbpqR2e2Aedej" },
             rightButtonTitle: 'Logout',
             onRightButtonPress: () => {
-              this.changeLoginState(false);
+              this.props.changeLogin(false);
             }
           }}
           />
@@ -83,21 +54,13 @@ let Layout = React.createClass({
       return (
         <SignIn
           navigator={navigator}
-          changeLogin={this.changeLoginState}
+          changeLogin={this.props.changeLogin}
           />
       );
     }
   },
 
   renderPrivateNavigator() {
-    // setTimeout(()=> {
-    //   if (this.refs.privateNavigator && !this.state.loggedIn) {
-    //     this.refs.privateNavigator.push({
-    //       id: 'signIn'
-    //     });
-    //   }
-    // }, 100);
-
     return (
       <Navigator
         ref="privateNavigator"
@@ -116,40 +79,32 @@ let Layout = React.createClass({
   },
 
   render() {
-    if (this.state.connected) {
-      return (
-        <TabBarIOS>
-          <TabBarIOS.Item
-            title="Public Lists"
-            icon={require('image!public')}
-            selected={this.state.selectedTab === 'public'}
-            onPress={() => {
-              this.setState({
-                selectedTab: 'public',
-              });
-            }}>
-            {this.renderPublicNavigator()}
-          </TabBarIOS.Item>
-          <TabBarIOS.Item
-            title="Private Lists"
-            icon={require('image!private')}
-            selected={this.state.selectedTab === 'private'}
-            onPress={() => {
-              this.setState({
-                selectedTab: 'private',
-              });
-            }}>
-            {this.renderPrivateNavigator()}
-          </TabBarIOS.Item>
-        </TabBarIOS>
-      )
-    } else {
-      return (
-        <View>
-          <Text>Connecting</Text>
-        </View>
-      )
-    }
+    return (
+      <TabBarIOS>
+        <TabBarIOS.Item
+          title="Public Lists"
+          icon={require('image!public')}
+          selected={this.state.selectedTab === 'public'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'public',
+            });
+          }}>
+          {this.renderPublicNavigator()}
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          title="Private Lists"
+          icon={require('image!private')}
+          selected={this.state.selectedTab === 'private'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'private',
+            });
+          }}>
+          {this.renderPrivateNavigator()}
+        </TabBarIOS.Item>
+      </TabBarIOS>
+    )
   }
 });
 
