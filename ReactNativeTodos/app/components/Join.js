@@ -18,9 +18,15 @@ let Join = React.createClass({
   },
 
   handleClick() {
-    console.log(this.state.email, this.state.password, this.state.confirmPassword);
-
-    this.props.navigator.popToTop();
+    if (this.state.password === this.state.confirmPassword) {
+      ddp.call('Users.create', [this.state.email, this.state.password])
+        .then(() => {
+          return ddp.loginWithPassword(this.state.email, this.state.password);
+        })
+        .then((userId) => {
+          this.props.changeLogin({loggedIn: true, userId: userId});
+        });
+    }
   },
 
   handleSignInClick() {

@@ -71,7 +71,12 @@ let Layout = React.createClass({
           />
       );
     } else if (route.id === 'join') {
-      return <Join navigator={navigator} />;
+      return (
+        <Join
+          navigator={navigator}
+          changeLogin={this.handleLogin}
+          />
+      )
     } else {
       return (
         <SignIn

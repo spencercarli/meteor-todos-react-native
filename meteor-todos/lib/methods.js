@@ -21,5 +21,9 @@ Meteor.methods({
 
   'Todos.remove': function(_id) {
     return Todos.remove(_id);
+  },
+
+  'Users.create': function(email, password) {
+    return Accounts.createUser({email: email, password: password});
   }
 });
