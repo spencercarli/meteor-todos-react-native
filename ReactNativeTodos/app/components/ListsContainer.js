@@ -8,6 +8,12 @@ let Lists = require('./Lists');
 let ddp = require('../config/ddp');
 
 let ListsContainer = React.createClass({
+  propTypes() {
+    return {
+      userId: React.PropTypes.string
+    }
+  },
+
   getInitialState() {
     return {
       lists: [],
@@ -16,10 +22,20 @@ let ListsContainer = React.createClass({
   },
 
   componentWillMount() {
-    ddp.subscribe('publicLists')
+    let subName = 'publicLists';
+    let subParams = [];
+    let query = { userId: null };
+
+    if (this.props.userId) {
+      subName = 'privateLists2'; // Refactor
+      query = { userId: this.props.userId };
+      subParams.push(this.props.userId); // Refactor
+    }
+
+    ddp.subscribe(subName, subParams)
       .then(() => {
         let listsObserver = ddp.collections.observe(() => {
-          return ddp.collections.lists.find()
+          return ddp.collections.lists.find(query)
         });
 
         this.setState({listsObserver: listsObserver});

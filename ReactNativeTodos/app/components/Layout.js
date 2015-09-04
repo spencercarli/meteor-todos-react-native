@@ -55,6 +55,7 @@ let Layout = React.createClass({
           initialRoute={{
             component: ListsContainer,
             title: 'Private Lists',
+            passProps: { userId: "4AqepbpqR2e2Aedej" }
           }}
           />
       );
@@ -62,14 +63,14 @@ let Layout = React.createClass({
   },
 
   renderPrivateNavigator() {
-    setTimeout(()=> {
-      if (this.refs.privateNavigator && !ROUTE_RESET) {
-        this.refs.privateNavigator.push({
-          id: 'signIn'
-        });
-        ROUTE_RESET = true;
-      }
-    }, 100);
+    // setTimeout(()=> {
+    //   if (this.refs.privateNavigator && !ROUTE_RESET) {
+    //     this.refs.privateNavigator.push({
+    //       id: 'signIn'
+    //     });
+    //     ROUTE_RESET = true;
+    //   }
+    // }, 100);
 
     return (
       <Navigator
