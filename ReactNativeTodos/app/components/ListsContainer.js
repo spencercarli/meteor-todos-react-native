@@ -43,7 +43,7 @@ let ListsContainer = React.createClass({
       subName = 'privateLists'; // Refactor
       query = { userId: userId };
     }
-    console.log(query);
+
     ddp.subscribe(subName)
       .then(() => {
         let listsObserver = ddp.collections.observe(() => {

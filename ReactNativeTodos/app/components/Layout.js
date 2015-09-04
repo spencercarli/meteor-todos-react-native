@@ -57,13 +57,19 @@ let Layout = React.createClass({
 
   renderPrivateScene(route, navigator) {
     if (route.id === 'list') {
+      let userId = this.props.userId;
+
+      if (route.userId) {
+        userId = route.userId;
+      }
+
       return (
         <NavigatorIOS
           style={{flex: 1}}
           initialRoute={{
             component: ListsContainer,
             title: 'Private Lists',
-            passProps: { userId: this.props.userId },
+            passProps: { userId: userId },
             rightButtonTitle: 'Logout',
             onRightButtonPress: () => {
               this.handleLogout();
