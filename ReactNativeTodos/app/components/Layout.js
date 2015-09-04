@@ -37,7 +37,8 @@ let Layout = React.createClass({
 
   handleLogin(res) {
     this.refs.privateNavigator.push({
-      id: 'list'
+      id: 'list',
+      userId: res.userId
     })
     this.props.changeLogin(res);
   },
