@@ -19,4 +19,4 @@ You'll need two terminal windows to run this example.
 
 ## Changes made to the Meteor Todos Example
 
-I wanted to minimize the number of changes I made to the example provided by Meteor (created by running `meteor create --example todos`). The only addition I made was adding a few (Meteor methods)[meteor-todos/lib/methods.js].
+I wanted to minimize the number of changes I made to the example provided by Meteor (created by running `meteor create --example todos`). The only addition I made was adding a few Meteor methods in `meteor-todos/lib/methods.js`.
