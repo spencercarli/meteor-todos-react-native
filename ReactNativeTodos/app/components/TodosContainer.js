@@ -27,7 +27,11 @@ let TodosContainer = React.createClass({
     ddp.subscribe('todos', [this.props.list._id])
       .then(() => {
         let todosObserver = ddp.collections.observe(() => {
-          return ddp.collections.todos.find({listId: this.props.list._id});
+          let todos = [];
+          if (ddp.collections.todos) {
+            todos = ddp.collections.todos.find({listId: this.props.list._id});
+          }
+          return todos;
         });
 
         this.setState({todosObserver: todosObserver});

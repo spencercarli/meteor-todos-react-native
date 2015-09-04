@@ -6,6 +6,7 @@ let {
   StyleSheet,
   TouchableOpacity,
   Image,
+  AlertIOS,
 } = React;
 
 let TodosContainer = require('./TodosContainer');
@@ -29,6 +30,20 @@ let Lists = React.createClass({
     this.props.navigator.push({
       title: list.name,
       component: TodosContainer,
+      rightButtonTitle: 'Delete',
+      onRightButtonPress: () => {
+        AlertIOS.alert(
+          'Are you sure?',
+          'Are you sure you want to delete ' + list.name,
+          [
+            {text: 'Cancel'},
+            {text: 'Delete', onPress: () => {
+              this.props.navigator.pop();
+              ddp.call('Lists.remove', [list._id]);
+            }},
+          ]
+        );
+      },
       passProps: {
         list: list
       }
