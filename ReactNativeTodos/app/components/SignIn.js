@@ -11,6 +11,13 @@ let {
 let ddp = require('../config/ddp');
 
 let SignIn = React.createClass({
+  displayName: 'SignIn',
+
+  propTypes: {
+    changeLogin: React.PropTypes.func,
+    navigator: React.PropTypes.object
+  },
+
   getInitialState() {
     return {
       email: '',
@@ -22,7 +29,7 @@ let SignIn = React.createClass({
     ddp.loginWithPassword(this.state.email, this.state.password)
       .then((res) => {
         if (res.loggedIn === true) {
-          this.props.changeLogin(res);          
+          this.props.changeLogin(res);
         }
       });
   },

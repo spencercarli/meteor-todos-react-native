@@ -8,10 +8,11 @@ let Lists = require('./Lists');
 let ddp = require('../config/ddp');
 
 let ListsContainer = React.createClass({
-  propTypes() {
-    return {
-      userId: React.PropTypes.string
-    }
+  displayName: 'ListsContainer',
+
+  propTypes: {
+    userId: React.PropTypes.string,
+    navigator: React.PropTypes.object
   },
 
   getInitialState() {

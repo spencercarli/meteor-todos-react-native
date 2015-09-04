@@ -10,6 +10,12 @@ let ddp = require('../config/ddp');
 let _ = require('underscore');
 
 let TodosContainer = React.createClass({
+  displayName: 'TodosContainer',
+
+  propTypes: {
+    list: React.PropTypes.object
+  },
+
   getInitialState() {
     return {
       todos: [],

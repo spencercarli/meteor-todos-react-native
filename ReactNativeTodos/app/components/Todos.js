@@ -12,8 +12,11 @@ let openImage = require("image!open");
 let checkedImage = require("image!checked");
 
 let Todos = React.createClass({
+  displayName: 'Todos',
+
   propTypes: {
-    todos: React.PropTypes.array
+    todos: React.PropTypes.array,
+    handleCheck: React.PropTypes.func
   },
 
   getDefaultProps() {

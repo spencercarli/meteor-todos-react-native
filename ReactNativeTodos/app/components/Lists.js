@@ -12,8 +12,11 @@ let TodosContainer = require('./TodosContainer');
 let chevronRight = require("image!chevron-right");
 
 let Lists = React.createClass({
+  displayName: 'Lists',
+
   propTypes: {
-    lists: React.PropTypes.array
+    lists: React.PropTypes.array,
+    navigator: React.PropTypes.object
   },
 
   getDefaultProps() {

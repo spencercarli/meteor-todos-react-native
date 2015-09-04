@@ -10,6 +10,8 @@ let Layout = require('./Layout');
 let ddp = require('../config/ddp');
 
 let LayoutContainer = React.createClass({
+  displayName: 'LayoutContainer',
+
   getInitialState() {
     return {
       connected: false,

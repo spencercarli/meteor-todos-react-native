@@ -9,6 +9,13 @@ let {
 } = React;
 
 let Join = React.createClass({
+  displayName: 'Join',
+
+  propTypes: {
+    changeLogin: React.PropTypes.func,
+    navigator: React.PropTypes.object
+  },
+
   getInitialState() {
     return {
       email: '',

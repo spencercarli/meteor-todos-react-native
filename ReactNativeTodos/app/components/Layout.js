@@ -1,5 +1,3 @@
-'use strict';
-
 let React = require('react-native');
 let {
   View,
@@ -14,12 +12,12 @@ let SignIn = require('./SignIn');
 let Join = require('./Join');
 
 let Layout = React.createClass({
-  propTypes() {
-    return {
-      userId: React.PropTypes.string,
-      loggedIn: React.PropTypes.bool,
-      changeLogin: React.PropTypes.func
-    }
+  displayName: 'Layout',
+
+  propTypes: {
+    userId: React.PropTypes.string,
+    loggedIn: React.PropTypes.bool,
+    changeLogin: React.PropTypes.func
   },
 
   getInitialState() {

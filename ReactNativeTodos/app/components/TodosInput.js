@@ -8,6 +8,12 @@ let {
 } = React;
 
 let TodosInput = React.createClass({
+  displayName: 'TodosInput',
+
+  propTypes: {
+    addTask: React.PropTypes.func
+  },
+
   getInitialState() {
     return {
       text: ''
