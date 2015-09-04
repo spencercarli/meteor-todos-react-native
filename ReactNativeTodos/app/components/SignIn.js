@@ -21,7 +21,9 @@ let SignIn = React.createClass({
   handleClick() {
     ddp.loginWithPassword(this.state.email, this.state.password)
       .then((res) => {
-        this.props.changeLogin(res);
+        if (res.loggedIn === true) {
+          this.props.changeLogin(res);          
+        }
       });
   },
 

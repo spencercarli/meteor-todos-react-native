@@ -28,6 +28,20 @@ let Layout = React.createClass({
     }
   },
 
+  handleLogout() {
+    this.refs.privateNavigator.push({
+      id: 'signIn'
+    })
+    this.props.changeLogin({loggedIn: false});
+  },
+
+  handleLogin(res) {
+    this.refs.privateNavigator.push({
+      id: 'list'
+    })
+    this.props.changeLogin(res);
+  },
+
   renderPublicNavigator() {
     return (
       <NavigatorIOS
@@ -41,7 +55,7 @@ let Layout = React.createClass({
   },
 
   renderPrivateScene(route, navigator) {
-    if (route.id === 'list' || this.props.loggedIn) {
+    if (route.id === 'list') {
       return (
         <NavigatorIOS
           style={{flex: 1}}
@@ -51,7 +65,7 @@ let Layout = React.createClass({
             passProps: { userId: this.props.userId },
             rightButtonTitle: 'Logout',
             onRightButtonPress: () => {
-              this.props.changeLogin({loggedIn: false});
+              this.handleLogout();
             }
           }}
           />
@@ -62,17 +76,22 @@ let Layout = React.createClass({
       return (
         <SignIn
           navigator={navigator}
-          changeLogin={this.props.changeLogin}
+          changeLogin={this.handleLogin}
           />
       );
     }
   },
 
   renderPrivateNavigator() {
+    let initialRoute = { id: 'signIn', index: 0 };
+    if (this.props.userId) {
+      initialRoute.id = 'list';
+    }
+
     return (
       <Navigator
         ref="privateNavigator"
-        initialRoute={{id: 'signIn', index: 0}}
+        initialRoute={initialRoute}
         renderScene={this.renderPrivateScene}
         configureScene={(route) => {
           let config = Navigator.SceneConfigs.FloatFromBottom
