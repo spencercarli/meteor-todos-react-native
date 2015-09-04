@@ -20,8 +20,8 @@ let SignIn = React.createClass({
 
   handleClick() {
     ddp.loginWithPassword(this.state.email, this.state.password)
-      .then((loggedIn) => {
-        this.props.changeLogin(loggedIn);
+      .then((res) => {
+        this.props.changeLogin(res);
       });
   },
 

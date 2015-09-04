@@ -14,6 +14,14 @@ let SignIn = require('./SignIn');
 let Join = require('./Join');
 
 let Layout = React.createClass({
+  propTypes() {
+    return {
+      userId: React.PropTypes.string,
+      loggedIn: React.PropTypes.bool,
+      changeLogin: React.PropTypes.func
+    }
+  },
+
   getInitialState() {
     return {
       selectedTab: 'public'
@@ -40,10 +48,10 @@ let Layout = React.createClass({
           initialRoute={{
             component: ListsContainer,
             title: 'Private Lists',
-            passProps: { userId: "4AqepbpqR2e2Aedej" },
+            passProps: { userId: this.props.userId },
             rightButtonTitle: 'Logout',
             onRightButtonPress: () => {
-              this.props.changeLogin(false);
+              this.props.changeLogin({loggedIn: false});
             }
           }}
           />

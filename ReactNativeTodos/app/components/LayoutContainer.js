@@ -13,7 +13,8 @@ let LayoutContainer = React.createClass({
   getInitialState() {
     return {
       connected: false,
-      loggedIn: false
+      loggedIn: false,
+      userId: null
     }
   },
 
@@ -22,16 +23,24 @@ let LayoutContainer = React.createClass({
       .then(() => {
         return ddp.loginWithToken();
       })
-      .then((loggedIn) => {
-        this.setState({connected: true, loggedIn: loggedIn});
+      .then((res) => {
+        let state = {
+          connected: true,
+          loggedIn: false
+        };
+        if (res.loggedIn === true) {
+          state.loggedIn = true;
+          state.userId= res.userId;
+        }
+        this.setState(state);
       });
   },
 
-  changeLoginState(loggedIn) {
-    if (!loggedIn) {
+  changeLoginState(res) {
+    if (!res.loggedIn) {
       ddp.logout();
     }
-    this.setState({loggedIn: loggedIn});
+    this.setState(res);
   },
 
   render() {
@@ -39,6 +48,7 @@ let LayoutContainer = React.createClass({
       return (
         <Layout
           loggedIn={this.state.loggedIn}
+          userId={this.state.userId}
           changeLogin={this.changeLoginState}
           />
       );

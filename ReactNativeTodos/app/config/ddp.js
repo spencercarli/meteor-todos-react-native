@@ -91,6 +91,10 @@ ddp.loginWithToken = function() {
     // Check if we have a loginToken in persistent client storage
     AsyncStorage.getItem('loginToken')
       .then(function(token) {
+        var obj = {
+          loggedIn: false
+        };
+
         // Login with said token
         if (token) {
           ddpClient.call("login", [{ resume: token }], function (err, res) {
@@ -100,14 +104,20 @@ ddp.loginWithToken = function() {
               AsyncStorage.setItem('userId', res.id)
               AsyncStorage.setItem('loginToken', res.token);
               AsyncStorage.setItem('loginTokenExpires', res.tokenExpires);
-              resolve(true);
+
+              obj = {
+                loggedIn: true,
+                userId: res.id
+              };
+
+              resolve(obj);
             } else {
-              resolve(false);
+              resolve(obj);
             }
           });
         } else {
           console.log('No token found');
-          resolve(false);
+          resolve(obj);
         }
       });
   });
@@ -117,6 +127,10 @@ ddp.loginWithToken = function() {
 ddp.loginWithPassword = function(email, password) {
 
   return new Promise(function(resolve, reject) {
+    var obj = {
+      loggedIn: false
+    };
+
     ddpClient.call("login", [
       { user : { email : email }, password : password }
     ], function (err, res) {
@@ -129,9 +143,13 @@ ddp.loginWithPassword = function(email, password) {
         AsyncStorage.setItem('userId', res.id)
         AsyncStorage.setItem('loginToken', res.token);
         AsyncStorage.setItem('loginTokenExpires', res.tokenExpires);
-        resolve(true);
+
+        obj.loggedIn = true;
+        obj.userId = res.id;
+
+        resolve(obj);
       } else {
-        resolve(false);
+        resolve(obj);
       }
     });
   });
