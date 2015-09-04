@@ -38,9 +38,21 @@ let Todos = React.createClass({
     );
   },
 
+  renderNoTodosFound() {
+    return (
+      <View style={styles.row}>
+        <Text style={styles.todoText}>No Todos Found</Text>
+      </View>
+    );
+  },
+
   render() {
     let todoItems = [];
-    todoItems = this.props.todos.map(this.renderTodoRow);
+    if (this.props.todos.length) {
+      todoItems = this.props.todos.map(this.renderTodoRow);
+    } else {
+      todoItems.push(this.renderNoTodosFound());
+    }
 
     return (
       <ScrollView style={styles.container} automaticallyAdjustContentInsets={false}>

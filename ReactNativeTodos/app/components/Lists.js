@@ -43,9 +43,21 @@ let Lists = React.createClass({
     );
   },
 
+  renderNoListsFound() {
+    return (
+      <View style={styles.row}>
+        <Text style={styles.listName}>No Lists Found</Text>
+      </View>
+    );
+  },
+
   render() {
     let listItems = [];
-    listItems = this.props.lists.map(this.renderListRow);
+    if (this.props.lists.length) {
+      listItems = this.props.lists.map(this.renderListRow);
+    } else {
+      listItems.push(this.renderNoListsFound());
+    }
 
     return (
       <ScrollView style={styles.container}>
