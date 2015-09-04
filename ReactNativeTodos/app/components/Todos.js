@@ -33,7 +33,7 @@ let Todos = React.createClass({
         <TouchableWithoutFeedback onPress={() => this.props.handleCheck(todo._id)}>
           <Image style={styles.statusIcon} source={icon}/>
         </TouchableWithoutFeedback>
-        <Text style={styles.listName}>{todo.text}</Text>
+        <Text style={styles.todoText}>{todo.text}</Text>
       </View>
     );
   },
@@ -57,12 +57,13 @@ const styles = StyleSheet.create({
   row: {
     padding: 15,
     borderBottomWidth: 1 / React.PixelRatio.get(),
-    borderBottomColor: 'black',
+    borderBottomColor: '#d2edf4',
     flexDirection: 'row'
   },
-  listName: {
+  todoText: {
     fontSize: 16,
-    fontWeight: '300'
+    fontWeight: "400",
+    color: '#666'
   },
   statusIcon: {
     marginRight: 15

@@ -40,7 +40,7 @@ let TodosInput = React.createClass({
 const styles = StyleSheet.create({
   container: {
     marginTop: 64,
-    borderColor: 'black',
+    borderColor: '#d2edf4',
     borderBottomWidth: 1 / PixelRatio.get(),
   },
   input: {
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     fontSize: 16,
     fontWeight: '300',
+    color: '#666'
   }
 });
 

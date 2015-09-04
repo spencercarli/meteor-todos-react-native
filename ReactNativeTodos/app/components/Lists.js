@@ -57,17 +57,19 @@ let Lists = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   },
   row: {
     padding: 15,
     borderBottomWidth: 1 / React.PixelRatio.get(),
-    borderBottomColor: 'black',
+    borderBottomColor: '#d2edf4',
     flexDirection: "row",
   },
   listName: {
     fontSize: 16,
-    fontWeight: '300'
+    fontWeight: "400",
+    color: '#666'
   },
   chevron: {
     alignSelf: 'flex-end',
