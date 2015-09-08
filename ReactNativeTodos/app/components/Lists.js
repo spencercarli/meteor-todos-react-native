@@ -7,6 +7,7 @@ let {
   TouchableOpacity,
   Image,
   AlertIOS,
+  ActionSheetIOS,
 } = React;
 
 let TodosContainer = require('./TodosContainer');
@@ -26,12 +27,20 @@ let Lists = React.createClass({
     }
   },
 
-  handleClick(list) {
-    this.props.navigator.push({
-      title: list.name,
-      component: TodosContainer,
-      rightButtonTitle: 'Delete',
-      onRightButtonPress: () => {
+  handleMoreClick(list) {
+    let options = ["Make Private", "Delete List", "Cancel"];
+
+    if (list.userId) {
+      options[0] = "Make Public";
+    }
+
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: options,
+      cancelButtonIndex: 2,
+      destructiveButtonIndex: 1,
+    },
+    (buttonIndex) => {
+      if (buttonIndex === 1) {
         AlertIOS.alert(
           'Are you sure?',
           'Are you sure you want to delete ' + list.name,
@@ -43,6 +52,24 @@ let Lists = React.createClass({
             }},
           ]
         );
+      } else if (list.userId && buttonIndex === 0) {
+        this.props.navigator.pop();
+        ddp.call('Lists.update', [list._id, {$unset: {userId: true}}]);
+      } else if (buttonIndex === 0) {
+        this.props.navigator.pop();
+        let userId = ddp.collections.users.findOne()._id;
+        ddp.call('Lists.update', [list._id, {$set: {userId: userId}}]);
+      }
+    });
+  },
+
+  handleClick(list) {
+    this.props.navigator.push({
+      title: list.name,
+      component: TodosContainer,
+      rightButtonTitle: 'More',
+      onRightButtonPress: () => {
+        this.handleMoreClick(list);
       },
       passProps: {
         list: list
