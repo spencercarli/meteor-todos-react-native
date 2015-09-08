@@ -45,8 +45,8 @@ let LayoutContainer = React.createClass({
     this.setState(res);
   },
 
-  addNewList() {
-    ddp.call('Lists.insert');
+  addNewList(isPrivate) {
+    ddp.call('Lists.insert', [isPrivate]);
   },
 
   render() {

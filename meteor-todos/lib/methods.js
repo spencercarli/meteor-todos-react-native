@@ -1,6 +1,11 @@
 Meteor.methods({
-  'Lists.insert': function() {
+  'Lists.insert': function(isPrivate) {
     var list = {name: Lists.defaultName(), incompleteCount: 0};
+
+    if (isPrivate) {
+      list.userId = this.userId;
+    }
+
     return Lists.insert(list);
   },
 

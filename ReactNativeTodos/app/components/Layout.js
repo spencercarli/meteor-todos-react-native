@@ -42,9 +42,9 @@ let Layout = React.createClass({
     this.props.changeLogin(res);
   },
 
-  handleMore(privateLists) {
+  handleMore(isPrivate) {
     let options = ["Add New List", "Cancel"];
-    if (privateLists === true) {
+    if (isPrivate === true) {
       options.push("Logout");
     }
 
@@ -56,8 +56,8 @@ let Layout = React.createClass({
     (buttonIndex) => {
       if (buttonIndex === 0) {
         // Add a new list
-        this.props.addNewList();
-      } else if (buttonIndex === 2 && privateLists) {
+        this.props.addNewList(isPrivate);
+      } else if (buttonIndex === 2 && isPrivate) {
         this.handleLogout({loggedIn: false});
       }
     });
