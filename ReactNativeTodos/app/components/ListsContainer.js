@@ -83,6 +83,21 @@ let ListsContainer = React.createClass({
     );
   },
 
+  handleChangeListName(list) {
+    AlertIOS.prompt(
+      'Change List Name',
+      list.name,
+      [
+        {text: 'Cancel'},
+        {text: 'Save', onPress: (name) => {
+          this.props.navigator.pop();
+          let mod = {$set: {name: name}}
+          ddp.call('Lists.update', [list._id, mod]);
+        }},
+      ]
+    );
+  },
+
   render() {
     return (
       <Lists
@@ -90,6 +105,7 @@ let ListsContainer = React.createClass({
         navigator={this.props.navigator}
         changePublicity={this.handleChangePublicityClick}
         deleteList={this.handleDeleteListClick}
+        changeListName={this.handleChangeListName}
         />
     );
   }

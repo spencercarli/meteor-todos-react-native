@@ -27,7 +27,7 @@ let Lists = React.createClass({
   },
 
   handleMoreClick(list) {
-    let options = ["Make Private", "Delete List", "Cancel"];
+    let options = ["Make Private", "Change List Name", "Delete List", "Cancel"];
 
     if (list.userId) {
       options[0] = "Make Public";
@@ -35,16 +35,18 @@ let Lists = React.createClass({
 
     ActionSheetIOS.showActionSheetWithOptions({
       options: options,
-      cancelButtonIndex: 2,
-      destructiveButtonIndex: 1,
+      cancelButtonIndex: options.length - 1,
+      destructiveButtonIndex: options.length - 2,
     },
     (buttonIndex) => {
-      if (buttonIndex === 1) {
+      if (buttonIndex === options.length - 2) {
         this.props.deleteList(list);
       } else if (list.userId && buttonIndex === 0) {
         this.props.changePublicity(list, false);
       } else if (buttonIndex === 0) {
         this.props.changePublicity(list, true);
+      } else if (buttonIndex === 1) {
+        this.props.changeListName(list);
       }
     });
   },
