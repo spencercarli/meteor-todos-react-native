@@ -63,7 +63,7 @@ let Lists = React.createClass({
 
   renderNoListsFound() {
     return (
-      <View style={styles.row}>
+      <View style={styles.row} key="no-lists-found">
         <Text style={styles.listName}>No Lists Found</Text>
       </View>
     );

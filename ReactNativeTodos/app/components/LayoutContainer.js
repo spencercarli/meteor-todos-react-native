@@ -45,6 +45,10 @@ let LayoutContainer = React.createClass({
     this.setState(res);
   },
 
+  addNewList() {
+    ddp.call('Lists.insert');
+  },
+
   render() {
     if (this.state.connected) {
       return (
@@ -52,6 +56,7 @@ let LayoutContainer = React.createClass({
           loggedIn={this.state.loggedIn}
           userId={this.state.userId}
           changeLogin={this.changeLoginState}
+          addNewList={this.addNewList}
           />
       );
     } else {

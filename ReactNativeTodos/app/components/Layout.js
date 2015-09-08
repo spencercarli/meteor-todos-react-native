@@ -5,6 +5,7 @@ let {
   TabBarIOS,
   NavigatorIOS,
   Navigator,
+  ActionSheetIOS,
 } = React;
 
 let ListsContainer = require('./ListsContainer');
@@ -41,6 +42,27 @@ let Layout = React.createClass({
     this.props.changeLogin(res);
   },
 
+  handleMore(privateLists) {
+    let options = ["Add New List", "Cancel"];
+    if (privateLists === true) {
+      options.push("Logout");
+    }
+
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: options,
+      cancelButtonIndex: 1,
+      destructiveButtonIndex: 2,
+    },
+    (buttonIndex) => {
+      if (buttonIndex === 0) {
+        // Add a new list
+        this.props.addNewList();
+      } else if (buttonIndex === 2 && privateLists) {
+        this.handleLogout({loggedIn: false});
+      }
+    });
+  },
+
   renderPublicNavigator() {
     return (
       <NavigatorIOS
@@ -48,6 +70,10 @@ let Layout = React.createClass({
         initialRoute={{
           component: ListsContainer,
           title: 'Public Lists',
+          rightButtonTitle: 'More',
+          onRightButtonPress: () => {
+            this.handleMore(false);
+          }
         }}
         />
     );
@@ -68,9 +94,9 @@ let Layout = React.createClass({
             component: ListsContainer,
             title: 'Private Lists',
             passProps: { userId: userId },
-            rightButtonTitle: 'Logout',
+            rightButtonTitle: 'More',
             onRightButtonPress: () => {
-              this.handleLogout();
+              this.handleMore(true);
             }
           }}
           />

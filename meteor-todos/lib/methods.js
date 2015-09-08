@@ -1,6 +1,7 @@
 Meteor.methods({
-  'Lists.insert': function(data) {
-    return Lists.insert(data);
+  'Lists.insert': function() {
+    var list = {name: Lists.defaultName(), incompleteCount: 0};
+    return Lists.insert(list);
   },
 
   'Lists.update': function(_id, modifier) {
