@@ -38,14 +38,14 @@ let LayoutContainer = React.createClass({
       });
   },
 
-  changeLoginState(res) {
+  handleChangeLoginStateClick(res) {
     if (!res.loggedIn) {
       ddp.logout();
     }
     this.setState(res);
   },
 
-  addNewList(isPrivate) {
+  handleAddNewListClick(isPrivate) {
     ddp.call('Lists.insert', [isPrivate]);
   },
 
@@ -55,8 +55,8 @@ let LayoutContainer = React.createClass({
         <Layout
           loggedIn={this.state.loggedIn}
           userId={this.state.userId}
-          changeLogin={this.changeLoginState}
-          addNewList={this.addNewList}
+          changeLogin={this.handleChangeLoginStateClick}
+          addNewList={this.handleAddNewListClick}
           />
       );
     } else {

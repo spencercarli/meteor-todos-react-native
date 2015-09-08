@@ -1,7 +1,8 @@
 let React = require('react-native');
 let {
   View,
-  Text
+  Text,
+  AlertIOS,
 } = React;
 
 let Lists = require('./Lists');
@@ -59,11 +60,36 @@ let ListsContainer = React.createClass({
       });
   },
 
+  handleChangePublicityClick(list, makePublic) {
+    let mod = {$unset: {userId: true}};
+    if (makePublic) {
+      let userId = ddp.collections.users.findOne()._id;
+      mod = {$set: {userId: userId}};
+    }
+    ddp.call('Lists.update', [list._id, mod]);
+  },
+
+  handleDeleteListClick(list) {
+    AlertIOS.alert(
+      'Are you sure?',
+      'Are you sure you want to delete ' + list.name,
+      [
+        {text: 'Cancel'},
+        {text: 'Delete', onPress: () => {
+          this.props.navigator.pop();
+          ddp.call('Lists.remove', [list._id]);
+        }},
+      ]
+    );
+  },
+
   render() {
     return (
       <Lists
         lists={this.state.lists}
         navigator={this.props.navigator}
+        changePublicity={this.handleChangePublicityClick}
+        deleteList={this.handleDeleteListClick}
         />
     );
   }

@@ -6,7 +6,6 @@ let {
   StyleSheet,
   TouchableOpacity,
   Image,
-  AlertIOS,
   ActionSheetIOS,
 } = React;
 
@@ -41,24 +40,11 @@ let Lists = React.createClass({
     },
     (buttonIndex) => {
       if (buttonIndex === 1) {
-        AlertIOS.alert(
-          'Are you sure?',
-          'Are you sure you want to delete ' + list.name,
-          [
-            {text: 'Cancel'},
-            {text: 'Delete', onPress: () => {
-              this.props.navigator.pop();
-              ddp.call('Lists.remove', [list._id]);
-            }},
-          ]
-        );
+        this.props.deleteList(list);
       } else if (list.userId && buttonIndex === 0) {
-        this.props.navigator.pop();
-        ddp.call('Lists.update', [list._id, {$unset: {userId: true}}]);
+        this.props.changePublicity(list, false);
       } else if (buttonIndex === 0) {
-        this.props.navigator.pop();
-        let userId = ddp.collections.users.findOne()._id;
-        ddp.call('Lists.update', [list._id, {$set: {userId: userId}}]);
+        this.props.changePublicity(list, true);
       }
     });
   },
