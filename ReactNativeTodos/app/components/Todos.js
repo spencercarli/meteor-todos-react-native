@@ -8,8 +8,8 @@ let {
   TouchableWithoutFeedback,
 } = React;
 
-let openImage = require("image!open");
-let checkedImage = require("image!checked");
+let openImage = require("../images/open/open.png");
+let checkedImage = require("../images/checked/checked.png");
 
 let Todos = React.createClass({
   displayName: 'Todos',
@@ -43,7 +43,7 @@ let Todos = React.createClass({
 
   renderNoTodosFound() {
     return (
-      <View style={styles.row}>
+      <View style={styles.row} key="no-todos">
         <Text style={styles.todoText}>No Todos Found</Text>
       </View>
     );
