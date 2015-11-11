@@ -10,8 +10,7 @@ let {
 } = React;
 
 let TodosContainer = require('./TodosContainer');
-// let chevronRight = require("image!chevron-right");
-let chevronRight = null;
+let chevronRight = require("image!chevron-right");
 
 let Lists = React.createClass({
   displayName: 'Lists',

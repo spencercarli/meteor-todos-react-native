@@ -8,11 +8,8 @@ let {
   TouchableWithoutFeedback,
 } = React;
 
-// let openImage = require("image!open");
-// let checkedImage = require("image!checked");
-
-let openImage = null;
-let checkedImage = null;
+let openImage = require("image!open");
+let checkedImage = require("image!checked");
 
 let Todos = React.createClass({
   displayName: 'Todos',
