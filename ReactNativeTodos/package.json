@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node_modules/react-native/packager/packager.sh"
+    "start": "node_modules/react-native/packager/packager.sh",
+    "ios": "open ios/ReactNativeTodos.xcodeproj && REACT_EDITOR=atom npm start",
+    "android": "echo Android not yet tested or supported"
   },
   "dependencies": {
     "ddp-client": "^0.1.2",
