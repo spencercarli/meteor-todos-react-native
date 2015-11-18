@@ -43,12 +43,17 @@ export default React.createClass({
     return <TodoItem todo={todo} key={todo._id} />;
   },
 
+  renderHeader() {
+    return <TodoItemAdd listId={this.props.listId} />;
+  },
+
   // Component Render
   render() {
     return (
       <ListView
         dataSource={this.state.todos}
         renderRow={this.renderItem}
+        renderHeader={this.renderHeader}
         />
     );
   }
