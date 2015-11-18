@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh",
     "ios": "open ios/ReactNativeTodos.xcodeproj && REACT_EDITOR=atom npm start",
-    "android": "echo Android not yet tested or supported"
+    "android": "react-native run-android"
   },
   "dependencies": {
     "ddp-client": "hharnisc/node-ddp-client#minimongo-cache",
