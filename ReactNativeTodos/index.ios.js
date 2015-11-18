@@ -1,18 +1,17 @@
 'use strict';
 
-let React = require('react-native');
-let {
+var React = require('react-native');
+var {
   AppRegistry,
 } = React;
 
-// Polyfill the process functionality needed for minimongo-cache
-global.process = require("./app/config/process.polyfill");
+let Main = require('./app/components/main.js');
 
-let LayoutContainer = require('./app/components/LayoutContainer');
-
-let ReactNativeTodos = React.createClass({
+var ReactNativeTodos = React.createClass({
   render: function() {
-    return <LayoutContainer />;
+    return (
+      <Main />
+    );
   }
 });
 
