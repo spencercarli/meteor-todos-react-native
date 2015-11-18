@@ -18,10 +18,10 @@ let login = (loginObj, resolve, reject) => {
     }
 
     if (res) {
-      let userId = res.id;
+      let userId = res.id.toString();
       AsyncStorage.setItem('userId', userId)
-      AsyncStorage.setItem('loginToken', res.token);
-      AsyncStorage.setItem('loginTokenExpires', res.tokenExpires);
+      AsyncStorage.setItem('loginToken', res.token.toString());
+      AsyncStorage.setItem('loginTokenExpires', res.tokenExpires.toString());
 
       obj.loggedIn = true;
       obj.userId = userId;
@@ -78,7 +78,10 @@ Accounts.signInWithToken = () => {
 };
 
 Accounts.signUp = (email, password) => {
-  console.log('TODO: Handle Sign Up', email, password);
+  return ddpClient.call('Users.create', [email, password])
+    .then(() => {
+      return Accounts.signIn(email, password);
+    });
 };
 
 module.exports = Accounts;
