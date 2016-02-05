@@ -8,11 +8,11 @@ import {
   Navigator
 } from 'react-native';
 
-let icon = require('../images/fa-cog/fa-cog.png');
-let SignUp = require('./accounts/signUp');
-let SignIn = require('./accounts/signIn');
+import icon from '../images/fa-cog/fa-cog.png';
+import SignUp from './accounts/signUp';
+import SignIn from './accounts/signIn';
 
-let Accounts = require('../config/db/accounts');
+import Accounts from '../config/db/accounts';
 
 export default React.createClass({
   // Configuration

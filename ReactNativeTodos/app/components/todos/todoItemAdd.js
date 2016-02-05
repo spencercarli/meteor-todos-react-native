@@ -1,5 +1,4 @@
-import React from 'react-native';
-import {
+import React, {
   StyleSheet,
   View,
   TextInput,
@@ -7,9 +6,9 @@ import {
   PixelRatio
 } from 'react-native';
 
-let addIcon = require('../../images/fa-plus-circle/fa-plus-circle.png');
+import addIcon from '../../images/fa-plus-circle/fa-plus-circle.png';
 
-let TodosDB = require('../../config/db/todos');
+import TodosDB from '../../config/db/todos';
 
 export default React.createClass({
   // Configuration

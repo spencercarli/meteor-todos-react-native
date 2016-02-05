@@ -1,17 +1,16 @@
-let React = require('react-native');
-let {
+import React, {
   StyleSheet,
   View,
   Text,
   Navigator,
-} = React;
+} from 'react-native';
 
-let Lists = require('./lists/lists');
-let NavigationBar = require('react-native-navbar');
-let AppOptions = require('./appOptions');
+import Lists from './lists/lists';
+import NavigationBar from 'react-native-navbar';
+import AppOptions from './appOptions';
 
-let ddpClient = require('../config/db/lib/ddpClient');
-let Accounts = require('../config/db/accounts');
+import ddpClient from '../config/db/lib/ddpClient';
+import Accounts from '../config/db/accounts';
 
 // Polyfill the process functionality needed for minimongo-cache
 global.process = require("../config/db/lib/process.polyfill");
@@ -37,7 +36,7 @@ export default React.createClass({
         return this.setState({loaded: true});
       })
       .catch((err) => {
-        return this.setState({loaded: true});        
+        return this.setState({loaded: true});
       })
 
   },

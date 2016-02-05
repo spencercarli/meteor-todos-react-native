@@ -1,5 +1,4 @@
-import React from 'react-native';
-import {
+import React, {
   StyleSheet,
   PixelRatio,
 } from 'react-native';

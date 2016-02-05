@@ -1,5 +1,4 @@
-import React from 'react-native';
-import {
+import React, {
   StyleSheet,
   View,
   Text,
@@ -8,11 +7,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-let openSquare = require('../../images/fa-square-o/fa-square-o.png');
-let checkedSquare = require('../../images/fa-check-square-o/fa-check-square-o.png');
-let trash = require('../../images/fa-trash-o/fa-trash-o.png');
+import openSquare from '../../images/fa-square-o/fa-square-o.png';
+import checkedSquare from '../../images/fa-check-square-o/fa-check-square-o.png';
+import trash from '../../images/fa-trash-o/fa-trash-o.png';
 
-let TodosDB = require('../../config/db/todos');
+import TodosDB from '../../config/db/todos';
 
 export default React.createClass({
   // Configuration

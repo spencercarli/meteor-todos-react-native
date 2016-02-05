@@ -1,5 +1,4 @@
-let React = require('react-native');
-let {
+import React, {
   StyleSheet,
   View,
   Text,
@@ -7,16 +6,16 @@ let {
   PixelRatio,
   TouchableHighlight,
   Image,
-} = React;
+} from 'react-native';
 
-let Todos = require('../todos/todos');
-let ListItemAdd = require('./listItemAdd');
-let ListOptions = require('./listOptions');
+import Todos from '../todos/todos';
+import ListItemAdd from './listItemAdd';
+import ListOptions from './listOptions';
 
-let ListsDB = require('../../config/db/lists');
-let Accounts = require('../../config/db/accounts');
+import ListsDB from '../../config/db/lists';
+import Accounts from '../../config/db/accounts';
 
-let chevronRight = require('../../images/fa-chevron-right/fa-chevron-right.png');
+import chevronRight from '../../images/fa-chevron-right/fa-chevron-right.png';
 
 export default React.createClass({
   // Configuration
@@ -50,7 +49,7 @@ export default React.createClass({
 
     Accounts.emitter.on('loggedIn', (userId) => {
       if (userId) {
-        this.setState({user: {_id: userId}});        
+        this.setState({user: {_id: userId}});
       }
     });
 

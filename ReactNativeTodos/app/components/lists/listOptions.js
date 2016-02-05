@@ -1,5 +1,4 @@
-import React from 'react-native';
-import {
+import React, {
   StyleSheet,
   View,
   Image,
@@ -8,9 +7,9 @@ import {
   AlertIOS,
 } from 'react-native';
 
-let icon = require('../../images/fa-cog/fa-cog.png');
+import icon from '../../images/fa-cog/fa-cog.png';
 
-let ListsDB = require('../../config/db/lists');
+import ListsDB from '../../config/db/lists';
 
 export default React.createClass({
   // Configuration

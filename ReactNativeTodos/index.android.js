@@ -1,14 +1,12 @@
-'use strict';
-
-var React = require('react-native');
-var {
+import React, {
   AppRegistry,
-} = React;
+  Component
+} from 'react-native';
 
-let Main = require('./app/components/main.js');
+import Main from './app/components/main';
 
-var ReactNativeTodos = React.createClass({
-  render: function() {
+let ReactNativeTodos = React.createClass({
+  render() {
     return (
       <Main />
     );

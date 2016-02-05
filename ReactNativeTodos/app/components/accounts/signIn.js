@@ -1,14 +1,13 @@
-import React from 'react-native';
-import {
+import React, {
   View,
   Text,
   TextInput,
   TouchableOpacity
 } from 'react-native';
 
-let styles = require('./_accountsStyles');
+import styles from './_accountsStyles';
 
-let Accounts = require('../../config/db/accounts');
+import Accounts from '../../config/db/accounts';
 
 export default React.createClass({
   // Configuration

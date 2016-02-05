@@ -1,5 +1,4 @@
-import React from 'react-native';
-import {
+import React, {
   StyleSheet,
   View,
   TextInput,
@@ -7,9 +6,9 @@ import {
   PixelRatio
 } from 'react-native';
 
-let addIcon = require('../../images/fa-plus-circle/fa-plus-circle.png');
+import addIcon from '../../images/fa-plus-circle/fa-plus-circle.png';
 
-let ListsDB = require('../../config/db/lists');
+import ListsDB from '../../config/db/lists';
 
 export default React.createClass({
   // Configuration

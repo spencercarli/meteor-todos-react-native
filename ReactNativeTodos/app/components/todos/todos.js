@@ -1,13 +1,12 @@
-import React from 'react-native';
-import {
+import React, {
   TouchableHighlight,
   ListView
 } from 'react-native';
 
-let TodoItem = require('./todoItem');
-let TodoItemAdd = require('./todoItemAdd');
+import TodoItem from './todoItem';
+import TodoItemAdd from './todoItemAdd';
 
-let TodosDB = require('../../config/db/todos');
+import TodosDB from '../../config/db/todos';
 
 export default React.createClass({
   // Configuration
