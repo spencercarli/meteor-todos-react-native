@@ -16,6 +16,9 @@ You'll need two terminal windows to run this example.
 1. In terminal window 1 run `cd meteor-todos/ && meteor`
 2. In terminal window 2 run `cd ReactNativeTodos/ && npm install && npm run ios`
 3. After the npm dependencies are installed Xcode should open. You can then press the play button in the top left of Xcode and the iOS simulator should open.
+4. If you plan to run on a real device, make sure to replace `localhost` with your local IP address in the following files:
+* `AppDelegate.m`
+* `ReactNativeTodos/app/config/db/lib/ddpClient.js`
 
 ## Changes made to the Meteor Todos Example
 
