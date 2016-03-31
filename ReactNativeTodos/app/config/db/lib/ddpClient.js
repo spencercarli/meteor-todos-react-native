@@ -3,8 +3,8 @@ let _ = require("underscore");
 
 let ddpClient = new DDPClient({
   // All properties optional, defaults shown
-  // host : "localhost",
-  host: "192.168.1.3",
+  host : "localhost",
+  // host: "192.168.1.3",
   port : 3000,
   ssl  : false,
   autoReconnect : true,
@@ -25,7 +25,7 @@ ddp.initialize = () => {
       // If autoReconnect is true, this back will be invoked each time
       // a server connection is re-established
       if (error) {
-        console.log('DDP connection error!');
+        console.log(`DDP connection error! Attempted to connect to ${ddpClient.host}:${ddpClient.port}`);
         reject(error);
       }
 
