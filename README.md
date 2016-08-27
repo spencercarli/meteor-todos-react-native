@@ -1,3 +1,5 @@
+> **Deprecated:** While the code in this repo may still be valuable it no longer accurately represents how apps are built with React Native and Meteor. For a more up to date and continuously updated example please checkout the [React Native Meteor Boilerplate](https://github.com/spencercarli/react-native-meteor-boilerplate).
+
 # Meteor Todos, React Native Style
 
 A demo of React Native interacting with a Meteor backend. The goal of this project is to match the feature set of the web version of Meteor's Todos example.
